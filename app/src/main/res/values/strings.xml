@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Burn Jams</string>
+    <string name="nav_menu_home">page 1</string>
+    <string name="nav_menu_edit">page 2</string>
+    <string name="nav_menu_settings">page 3</string>
+    <string name="login_button_title">Sign In</string>
+    <string name="username_or_email">Username or Email</string>
+    <string name="password">password</string>
+    <string name="workouts_title">Workouts</string>
+    <string name="playlists_title">Playlists</string>
+    <string name="add_playlist_content_description">Add Playlist</string>
+    <string name="add_workout_content_description">Add Workout</string>
+    <string name="create_workout_name">Workout Name</string>
+    <string name="create_workout_duration">Duration</string>
+    <string name="create_workout_save_button">save</string>
+    <string name="create_workout_create_playlist_button">add songs</string>
+    <string name="create_workout_description">Workout Description</string>
+    <string name="create_playlist_search">Search</string>
+    <string name="create_playlist_search_button">search</string>
+    <string name="create_playlist_done_button">Done</string>
+    <string name="home_browse_title">Browse</string>
+    <string name="menu_item_home">home</string>
+    <string name="menu_item_workouts">workouts</string>
+</resources>
