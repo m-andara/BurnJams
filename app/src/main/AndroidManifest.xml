@@ -19,12 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity
-            android:name=".CreateWorkoutActivity"
-            android:noHistory="false" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PlayWorkoutActivity"
-            android:noHistory="false" />
+            android:noHistory="false"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

@@ -32,7 +32,7 @@ class WorkoutsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = FragmentWorkoutsBinding.inflate(inflater, container, false)
-        var itemTouchHelper = ItemTouchHelper(
+        ItemTouchHelper(
                 object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
                     override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean {
                         return false
@@ -41,7 +41,7 @@ class WorkoutsFragment : Fragment() {
                     override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
                         val position = viewHolder.adapterPosition
                         val workout = workouts[position]
-                        deleteWorkout(workout.playlistId, workout)
+                        deleteWorkout(workout)
                     }
                 }).attachToRecyclerView(binding.workoutsList)
         return binding.root
@@ -51,7 +51,8 @@ class WorkoutsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addWorkout.setOnClickListener {
-            (activity as MainActivity).goToCreateActivity()
+            (activity as MainActivity)
+                    .swapFragments(CreateWorkoutFragment())
         }
 
         binding.workoutsList.apply {
@@ -73,13 +74,13 @@ class WorkoutsFragment : Fragment() {
         }.execute()
     }
 
-    private fun deleteWorkout(playlist: String, workout: Workout) {
+    private fun deleteWorkout(workout: Workout) {
         BurnJamsRepository.GetToken { result ->
-            unfollowPlaylist(result, playlist, workout)
+            unfollowPlaylist(result, workout)
         }.execute()
     }
 
-    private fun unfollowPlaylist(result: String, playlist: String, workout: Workout) {
+    private fun unfollowPlaylist(result: String, workout: Workout) {
 
         BurnJamsRepository.deleteWorkout(result, workout) {
             refreshData()

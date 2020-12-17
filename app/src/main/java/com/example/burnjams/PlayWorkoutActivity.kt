@@ -16,7 +16,7 @@ class PlayWorkoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlayWorkoutBinding
     private var spotifyAppRemote: SpotifyAppRemote? = null
     private val playlist = BurnJamsRepository.getSelectedWorkout().playlistId
-    private var count = BurnJamsRepository.getSelectedWorkout().durationInMilliseconds
+    private var count = BurnJamsRepository.getSelectedWorkout().durationInMilliseconds.toLong()
     private lateinit var countDownTimer: CountDownTimer
     private val pause = "PAUSE"
     private val start = "START"
@@ -31,13 +31,18 @@ class PlayWorkoutActivity : AppCompatActivity() {
             }
             text = pause
         }
-        val timeInMinutes = TimeConversion.milToMin(count)
-        binding.time.text = timeInMinutes
 
-        val timer = count.toLong()
-        countDownTimer = object : CountDownTimer(timer, 1000) {
+        binding.time.text = TimeConversion.milToMin(count)
+
+        countDownTimer = createTimer(count)
+    }
+
+    private fun createTimer(countVal: Long): CountDownTimer {
+
+        return object : CountDownTimer(countVal, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                val time = TimeConversion.milToMin(millisUntilFinished.toInt())
+                count -= 1000
+                val time = TimeConversion.milToMin(millisUntilFinished)
                 binding.time.text = time
             }
 
@@ -74,6 +79,7 @@ class PlayWorkoutActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        spotifyAppRemote?.playerApi?.pause()
         spotifyAppRemote?.let {
             SpotifyAppRemote.disconnect(it)
         }
@@ -84,6 +90,7 @@ class PlayWorkoutActivity : AppCompatActivity() {
 
             spotifyAppRemote?.playerApi?.resume()
             binding.controlButton.text = pause
+            countDownTimer = createTimer(count)
             countDownTimer.start()
         } else {
 
@@ -120,4 +127,5 @@ class PlayWorkoutActivity : AppCompatActivity() {
     override fun onBackPressed() {
         stopPlayer()
     }
+
 }

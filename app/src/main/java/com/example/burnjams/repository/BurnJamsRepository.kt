@@ -60,8 +60,9 @@ object BurnJamsRepository {
         )
         currentCreateSongs.add(track)
         currentCreateWorkout.durationInMilliseconds += duration
+        val timeInMil = currentCreateWorkout.durationInMilliseconds.toLong()
         currentCreateWorkout.durationInMinutes = TimeConversion.milToMin(
-                currentCreateWorkout.durationInMilliseconds
+                timeInMil
         )
     }
 

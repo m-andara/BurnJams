@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.example.burnjams.CreateWorkoutActivity
+import com.example.burnjams.MainActivity
 import com.example.burnjams.databinding.FragmentCreateWorkoutBinding
 import com.example.burnjams.repository.BurnJamsRepository
 
@@ -27,7 +27,7 @@ class CreateWorkoutFragment : Fragment() {
         binding.workoutSavePlaylist.setOnClickListener {
             if (BurnJamsRepository.getCurrentCreateWorkout().durationInMilliseconds != 0) {
                 BurnJamsRepository.createPlaylist() {
-                    activity?.finish()
+                    (activity as MainActivity).swapFragments(WorkoutsFragment())
                 }
             } else {
                 AlertDialog.Builder(requireContext())
@@ -47,7 +47,7 @@ class CreateWorkoutFragment : Fragment() {
                 Toast.makeText(requireContext(), "Must fill out all boxes", Toast.LENGTH_LONG).show()
             } else {
                 BurnJamsRepository.setCurrentCreateWorkout(name, description)
-                (activity as CreateWorkoutActivity).swapFragments(CreatePlaylistFragment())
+                (activity as MainActivity).swapFragments(CreatePlaylistFragment())
             }
         }
     }
